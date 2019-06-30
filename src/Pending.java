@@ -9,10 +9,7 @@
  * @author User
  */
 public class Pending extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Pending
-     */
+    //moda shelomi
     public Pending() {
         initComponents();
     }
