@@ -178,8 +178,8 @@ public class addTask extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Adminform goToAdminform=new Adminform();
-        goToAdminform.setVisible(true);
+        Manageform goToManageform=new Manageform();
+        goToManageform.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
