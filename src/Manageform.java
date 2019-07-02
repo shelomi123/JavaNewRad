@@ -1,3 +1,7 @@
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -137,9 +141,13 @@ public class Manageform extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        viewReport goToviewReport=new viewReport();
-        goToviewReport.setVisible(true);
-        dispose();
+        try {
+            viewReport goToviewReport= new viewReport();
+            goToviewReport.setVisible(true);
+            dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(Manageform.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -147,9 +155,13 @@ public class Manageform extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        Efficiency goToEfficiency=new Efficiency();
-        goToEfficiency.setVisible(true);
-        dispose();
+        try {
+            Efficiency goToEfficiency=new Efficiency();
+            goToEfficiency.setVisible(true);
+            dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(Manageform.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
