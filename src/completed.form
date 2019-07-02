@@ -93,10 +93,10 @@
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="4">
                     <Column editable="true" title="TaskId" type="java.lang.Object"/>
-                    <Column editable="true" title="Task" type="java.lang.Object"/>
-                    <Column editable="true" title="Time" type="java.lang.Object"/>
+                    <Column editable="true" title="Allocated Time " type="java.lang.Object"/>
+                    <Column editable="true" title="Assigned Time" type="java.lang.Object"/>
+                    <Column editable="true" title="Due Time" type="java.lang.Object"/>
                     <Column editable="true" title="Submitted Time" type="java.lang.Object"/>
-                    <Column editable="true" title="To be submitted" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

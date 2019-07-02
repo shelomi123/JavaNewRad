@@ -28,7 +28,7 @@ public class Pending extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "TaskId", "Task", "Allocated Time", "Submitted Time", "To be submitted"
+                "TaskId", "Allocated Time", "Assigned Time", "Due Time", "Submitted Time"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

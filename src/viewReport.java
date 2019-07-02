@@ -39,16 +39,19 @@ public class viewReport extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "TaskId", "UserId", "Name", "Task", "Time", "Submitted Time", "To be submitted Time", "Status"
+                "TaskId", "Allocated Time", "Assigned Time", "Due Time", "Submitted Time"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("Submitted Time");
+        }
 
         jButton3.setText("Back");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
