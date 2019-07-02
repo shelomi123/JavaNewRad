@@ -147,8 +147,8 @@ public class Manageform extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        RegisterUser goToRegisterUser=new RegisterUser();
-        goToRegisterUser.setVisible(true);
+        Efficiency goToEfficiency=new Efficiency();
+        goToEfficiency.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
