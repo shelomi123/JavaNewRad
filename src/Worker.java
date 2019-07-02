@@ -1,3 +1,7 @@
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -133,19 +137,34 @@ public class Worker extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        taskSchedule goTotaskSchedule=new taskSchedule();
+        taskSchedule goTotaskSchedule = null;
+        try {
+            goTotaskSchedule = new taskSchedule();
+        } catch (Exception ex) {
+            Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+        }
         goTotaskSchedule.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        completed goTocompleted=new completed();
+        completed goTocompleted = null;
+        try {
+            goTocompleted = new completed();
+        } catch (Exception ex) {
+            Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+        }
         goTocompleted.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Pending goToPending=new Pending();
+        Pending goToPending = null;
+        try {
+            goToPending = new Pending();
+        } catch (Exception ex) {
+            Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+        }
         goToPending.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed

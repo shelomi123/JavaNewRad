@@ -1,44 +1,49 @@
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
-
-
 public class taskSchedule extends javax.swing.JFrame {
 
-    
-    public taskSchedule() {
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    public taskSchedule() throws Exception {
         initComponents();
+        tableGen();
     }
-    //private void formWindowActivated(java.awt.event.WindowEvent evt) {                                     
-     /*   DefaltTableModel table = new DefaltTableModel();
-        table.setColumnIdentifiers(new Object[]{"task","","",""});
-        availabilityTable.setModel(table);
-        
-        try{
-            Statement s = DBconnector.getConnection().createStatement();
-            ResultSet rs = s.executeQuery("select * from products");
-            jTable2.setModel(DbUtils.resultSetToTableModel(rs));
-        }catch(Exception e){
-            System.out.println("Exception = " + e);
-        }
-        
-    }*/
-    
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {                                     
-        
-        // TODO add your handling code here:
-        try{
-            Statement s = DBconnect.getConnection().createStatement();
-            ResultSet rs = s.executeQuery("select * from products");
+
+    public void tableGen() throws Exception {
+        conn = DBconnect.getConnection();
+        try {
+            String sql = "SELECT taskId As 'Task ID',assignedT AS 'Assigned Time',allocateT AS 'Allocated Time',dueT AS 'Due Time',submittdT AS 'Submited Time',IF(submittdT IS NULL,'Pending','Done') AS 'Status' FROM task";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-        }catch(Exception e){
-            System.out.println("Exception = " + e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
         }
+    }
+
+    /*private void formWindowActivated(java.awt.event.WindowEvent evt) {                                     
         
-    } 
+     // TODO add your handling code here:
+     try{
+     Statement s = DBconnect.getConnection().createStatement();
+     ResultSet rs = s.executeQuery("select * from products");
+     jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+     }catch(Exception e){
+     System.out.println("Exception = " + e);
+     }
+        
+     } */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -50,10 +55,14 @@ public class taskSchedule extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTID = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        txtSubHr = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtSubMin = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtSubSec = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +77,11 @@ public class taskSchedule extends javax.swing.JFrame {
                 "TaskId", "Allocatd Time", "Assigned Time", "Due Time", "Submitted Time", "Status"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -96,6 +110,10 @@ public class taskSchedule extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText(":");
+
+        jLabel8.setText(":");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -111,11 +129,19 @@ public class taskSchedule extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtSubHr, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSubMin, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSubSec, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtTID, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(54, 54, 54)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(82, Short.MAX_VALUE))
@@ -138,11 +164,16 @@ public class taskSchedule extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtSubHr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSubMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSubSec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                 .addComponent(jButton3)
@@ -166,37 +197,37 @@ public class taskSchedule extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Worker goToWorker=new Worker();
+        Worker goToWorker = new Worker();
         goToWorker.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
-         
-    
+
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String taskId = jTextField1.getText();
-        String allocateT = jTextField2.getText();
-        
+        String subTime = txtSubHr.getText().toString()+":"+txtSubMin.getText().toString()+":"+txtSubSec.getText().toString();
         try {
             Statement s = DBconnect.getConnection().createStatement();
-            s.executeUpdate("insert into task (taskId,allocateT,assignedT,dueT) values "
-                    + "('" + taskId + "','" + allocateT + "','" + assignedT + "','" + dueT + "')");
-            
-            jTextField1.setText("");
-            jTextField2.setText("");
-            
+            s.executeUpdate("UPDATE task SET submittdT='"+subTime+"' WHERE taskId='"+txtTID.getText().toString()+"'");
+            tableGen();
             JOptionPane.showMessageDialog(rootPane, "Successed");
-             
-    
+
         } catch (Exception e) {
             System.out.println("Exception = " + e);
 
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int column = 0;
+        int row = jTable1.getSelectedRow();
+        txtTID.setText(jTable1.getModel().getValueAt(row, column).toString());
+    }//GEN-LAST:event_jTable1MouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -223,7 +254,11 @@ public class taskSchedule extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new taskSchedule().setVisible(true);
+                try {
+                    new taskSchedule().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(taskSchedule.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -235,10 +270,14 @@ public class taskSchedule extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtSubHr;
+    private javax.swing.JTextField txtSubMin;
+    private javax.swing.JTextField txtSubSec;
+    private javax.swing.JTextField txtTID;
     // End of variables declaration//GEN-END:variables
 }

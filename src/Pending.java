@@ -1,9 +1,33 @@
 
-public class Pending extends javax.swing.JFrame {
-    public Pending() {
-        initComponents();
-    }
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 
+
+public class Pending extends javax.swing.JFrame {
+    Connection conn3 = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    public Pending() throws Exception {
+        initComponents();
+        tableGen3();
+    }
+public void tableGen3() throws Exception {
+        conn3 = DBconnect.getConnection();
+        try {
+            String sql = "SELECT taskId As 'Task ID',assignedT AS 'Assigned Time',allocateT AS 'Allocated Time',dueT AS 'Due Time',submittdT AS 'Submited Time' FROM task WHERE submittdT IS NULL";
+            pst = conn3.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -120,7 +144,11 @@ public class Pending extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Pending().setVisible(true);
+                try {
+                    new Pending().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(Pending.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

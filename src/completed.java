@@ -1,3 +1,12 @@
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,14 +18,47 @@
  * @author User
  */
 public class completed extends javax.swing.JFrame {
-
+    Connection conn2 = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
     /**
      * Creates new form report
      */
-    public completed() {
+    public completed() throws Exception {
         initComponents();
+        tableGen2();
+        
     }
+    public void tableGen2() throws Exception {
+        conn2 = DBconnect.getConnection();
+        try {
+            String sql = "SELECT taskId As 'Task ID',assignedT AS 'Assigned Time',allocateT AS 'Allocated Time',dueT AS 'Due Time',submittdT AS 'Submited Time' FROM task WHERE submittdT IS NOT NULL";
+            pst = conn2.prepareStatement(sql);
+            rs = pst.executeQuery();
 
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+    /*public void table(){
+         try {
+        Statement st = NewClass.getConnection().createStatement();
+        ResultSet rs = st.executeQuery("SELECT * FROM task.taskId,task.assignedT,task.allocateT,task.dueT");
+
+        while (rs.next()) {
+            String taskId = rs.getString("taskId");
+            String assignedT = rs.getString("assignedT");
+            String allocateT= rs.getInt("allocateT");
+            String dueT= rs.getInt("dueT");
+            table.addRow(new Object[]{taskId, assignedT, allocateT,dueT});
+        }
+    } 
+    catch(Exception e){ 
+            System.out.println(e);
+           }
+    }
+    */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,7 +180,11 @@ public class completed extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new completed().setVisible(true);
+                try {
+                    new completed().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(completed.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
