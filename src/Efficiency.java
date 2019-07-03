@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -125,6 +127,12 @@ public class Efficiency extends javax.swing.JFrame {
         });
 
         jLabel10.setText(":");
+
+        txtSubMin1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSubMin1ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText(":");
 
@@ -268,9 +276,7 @@ public class Efficiency extends javax.swing.JFrame {
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6))
+                            .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(36, 36, 36)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -316,26 +322,51 @@ public class Efficiency extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                                                   
        
-            int taskID = Integer.parseInt(jTextField1.getText());
+            String taskID = (jTextField1.getText());
             ResultSet rs=null;
 
             try {
 
                 Statement s = DBconnect.getConnection().createStatement();
-                rs= s.executeQuery("SELECT * FROM `task` WHERE taskId = '"+taskID+"'");
+                rs= s.executeQuery("SELECT * FROM task WHERE taskId ='"+taskID+"'");
 
                 while(rs.next()){
-                    int allocatedTime  = rs.getInt("allocateT");
+                    int allocatedTimeHours  = LocalTime.parse( rs.getString("allocateT")).getHour();
+                    int allocatedTimeMin  = LocalTime.parse( rs.getString("allocateT")).getMinute();
+                    int allocatedTimeSec  = LocalTime.parse( rs.getString("allocateT")).getSecond();
 
-                    int submittedTime  = rs.getInt("submittdT");
+                    //System.out.println(allocatedTimeSec);
+                   
+                    int submittedTimeHours  = LocalTime.parse(rs.getString("submittdT")).getHour();
+                    int submittedTimeMin  = LocalTime.parse(rs.getString("submittdT")).getMinute();
+                    int submittedTimeSec  = LocalTime.parse(rs.getString("submittdT")).getSecond();
+
+                    int dueTimeHours  =LocalTime.parse( rs.getString("dueT")).getHour();
+                    int dueTimeMin  =LocalTime.parse( rs.getString("dueT")).getMinute();
+                    int dueTimeSec  =LocalTime.parse( rs.getString("dueT")).getSecond();
                     
-                    int dueTime  = rs.getInt("dueT");
-                    
-                    if(submittedTime < dueTime){
+                    if(submittedTimeHours*3600+submittedTimeMin*60+submittedTimeSec <= dueTimeHours*3600+dueTimeMin*60+dueTimeSec){
                         
-                        jTextField_EFF.setBackground(Color.GREEN);                    
+                        txtSubHr1.setBackground(Color.GREEN);
+                        txtSubHr1.setText((Integer.toString((-((submittedTimeHours*3600)+(submittedTimeMin*60)+(submittedTimeSec))+((dueTimeHours*3600)+(dueTimeMin*60)+(dueTimeSec)))/3600)));
+                       
+                        txtSubMin1.setBackground(Color.GREEN);
+                        txtSubMin1.setText(Integer.toString((-1*(submittedTimeHours*3600+submittedTimeMin*60+submittedTimeSec-dueTimeHours*3600+dueTimeMin*60+dueTimeSec)%3600)/60));//
+
+                        txtSubSec1.setBackground(Color.GREEN);
+                        txtSubSec1.setText(Integer.toString((-1*(submittedTimeHours*3600+submittedTimeMin*60+submittedTimeSec-dueTimeHours*3600+dueTimeMin*60+dueTimeSec)%3600)%60));//
+
                     }else{
-                        jTextField_EFF.setBackground(Color.RED); 
+                        txtSubHr1.setBackground(Color.RED); 
+                        txtSubHr1.setText((Integer.toString((((submittedTimeHours*3600)+(submittedTimeMin*60)+(submittedTimeSec))-((dueTimeHours*3600)+(dueTimeMin*60)+(dueTimeSec)))/3600)));
+                        
+                        
+                        txtSubMin1.setBackground(Color.RED);
+                        txtSubMin1.setText(Integer.toString(((submittedTimeHours*3600+submittedTimeMin*60+submittedTimeSec-dueTimeHours*3600+dueTimeMin*60+dueTimeSec)%3600)/60));//
+
+                        txtSubSec1.setBackground(Color.RED);
+                        txtSubSec1.setText(Integer.toString(((submittedTimeHours*3600+submittedTimeMin*60+submittedTimeSec-dueTimeHours*3600+dueTimeMin*60+dueTimeSec)%3600)%60));//
+
                     }
                 }
 
@@ -356,6 +387,10 @@ public class Efficiency extends javax.swing.JFrame {
         int row = jTable1.getSelectedRow();
         jTextField1.setText(jTable1.getModel().getValueAt(row, column).toString());
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void txtSubMin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubMin1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubMin1ActionPerformed
 
     /**
      * @param args the command line arguments
