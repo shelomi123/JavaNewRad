@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -77,6 +79,11 @@ public class Efficiency extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         jLabel8.setText(":");
 
@@ -125,6 +132,12 @@ public class Efficiency extends javax.swing.JFrame {
         });
 
         jLabel10.setText(":");
+
+        txtSubMin1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSubMin1ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText(":");
 
@@ -176,6 +189,21 @@ public class Efficiency extends javax.swing.JFrame {
             .addGap(0, 34, Short.MAX_VALUE)
         );
 
+        jButton3.setText("Clear");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("hr");
+
+        jLabel13.setText("min");
+
+        jLabel14.setText("sec");
+
+        jLabel15.setText("%");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -197,30 +225,49 @@ public class Efficiency extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txtSubHr1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(txtSubHr1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel10))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel10)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(txtSubMin1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel11))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtSubMin1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtSubSec1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtSubSec1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(112, 112, 112)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton2)
                                 .addGap(101, 101, 101))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(112, 112, 112)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel6))
-                                .addGap(43, 43, 43)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -253,33 +300,34 @@ public class Efficiency extends javax.swing.JFrame {
                             .addComponent(txtSubMin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSubSec1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))
+                        .addGap(9, 9, 9)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(8, 8, 8)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(jButton3))
                         .addGap(54, 54, 54))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 51, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 17, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
                         .addGap(146, 146, 146))))
         );
 
@@ -316,26 +364,73 @@ public class Efficiency extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                                                   
        
-            int taskID = Integer.parseInt(jTextField1.getText());
+            String taskID = (jTextField1.getText());
             ResultSet rs=null;
 
             try {
 
                 Statement s = DBconnect.getConnection().createStatement();
-                rs= s.executeQuery("SELECT * FROM `task` WHERE taskId = '"+taskID+"'");
+                rs= s.executeQuery("SELECT * FROM task WHERE taskId ='"+taskID+"'");
 
                 while(rs.next()){
-                    int allocatedTime  = rs.getInt("allocateT");
+                    int allocatedTimeHours  = LocalTime.parse( rs.getString("allocateT")).getHour();
+                    int allocatedTimeMin  = LocalTime.parse( rs.getString("allocateT")).getMinute();
+                    int allocatedTimeSec  = LocalTime.parse( rs.getString("allocateT")).getSecond();
 
-                    int submittedTime  = rs.getInt("submittdT");
+                    //System.out.println(allocatedTimeSec);
+                   
+                    int submittedTimeHours  = LocalTime.parse(rs.getString("submittdT")).getHour();
+                    int submittedTimeMin  = LocalTime.parse(rs.getString("submittdT")).getMinute();
+                    int submittedTimeSec  = LocalTime.parse(rs.getString("submittdT")).getSecond();
+
+                    int dueTimeHours  =LocalTime.parse( rs.getString("dueT")).getHour();
+                    int dueTimeMin  =LocalTime.parse( rs.getString("dueT")).getMinute();
+                    int dueTimeSec  =LocalTime.parse( rs.getString("dueT")).getSecond();
                     
-                    int dueTime  = rs.getInt("dueT");
+                    float ath = LocalTime.parse( rs.getString("allocateT")).getHour();
+                    float atm = LocalTime.parse( rs.getString("allocateT")).getMinute();
+                    float ats = LocalTime.parse( rs.getString("allocateT")).getSecond();
                     
-                    if(submittedTime < dueTime){
+                    float sth = LocalTime.parse(rs.getString("submittdT")).getHour();
+                    float stm = LocalTime.parse(rs.getString("submittdT")).getMinute();
+                    float sts = LocalTime.parse( rs.getString("dueT")).getSecond();
+                    
+                    float dth = LocalTime.parse( rs.getString("dueT")).getHour();
+                    float dtm = LocalTime.parse( rs.getString("dueT")).getMinute();
+                    float dts = LocalTime.parse( rs.getString("dueT")).getSecond();
+                    
+                    
+                    if(submittedTimeHours*3600+submittedTimeMin*60+submittedTimeSec <= dueTimeHours*3600+dueTimeMin*60+dueTimeSec){
                         
-                        jTextField_EFF.setBackground(Color.GREEN);                    
+                        txtSubHr1.setBackground(Color.GREEN);
+                        txtSubHr1.setText((Integer.toString((((dueTimeHours*3600)+(dueTimeMin*60)+(dueTimeSec))-
+                                ((submittedTimeHours*3600)+(submittedTimeMin*60)+(submittedTimeSec)))/3600)));
+                        
+                        txtSubMin1.setBackground(Color.GREEN);
+                        txtSubMin1.setText(Integer.toString(((((dueTimeHours*3600)+(dueTimeMin*60)+(dueTimeSec))-
+                                ((submittedTimeHours*3600)+(submittedTimeMin*60)+(submittedTimeSec)))%3600)/60));//
+
+                        txtSubSec1.setBackground(Color.GREEN);
+                        txtSubSec1.setText(Integer.toString(((((dueTimeHours*3600)+(dueTimeMin*60)+(dueTimeSec))-
+                                ((submittedTimeHours*3600)+(submittedTimeMin*60)+(submittedTimeSec)))%3600)%60));//
+                        
+                        jTextField3.setText((Float.toString((((((dth*3600)+(dtm*60)+(dts))-((sth*3600)+(stm*60)+(sts)))/
+                                ((ath*3600)+(atm*60)+(ats))))*100)));
+
                     }else{
-                        jTextField_EFF.setBackground(Color.RED); 
+                        txtSubHr1.setBackground(Color.RED); 
+                        txtSubHr1.setText((Integer.toString((((submittedTimeHours*3600)+(submittedTimeMin*60)+
+                                (submittedTimeSec))-((dueTimeHours*3600)+(dueTimeMin*60)+(dueTimeSec)))/3600)));
+                        
+                        
+                        txtSubMin1.setBackground(Color.RED);
+                        txtSubMin1.setText(Integer.toString(((submittedTimeHours*3600+submittedTimeMin*60+submittedTimeSec-dueTimeHours*3600+dueTimeMin*60+dueTimeSec)%3600)/60));//
+
+                        txtSubSec1.setBackground(Color.RED);
+                        txtSubSec1.setText(Integer.toString(((submittedTimeHours*3600+submittedTimeMin*60+submittedTimeSec-dueTimeHours*3600+dueTimeMin*60+dueTimeSec)%3600)%60));//
+                            
+                        jTextField3.setText((Float.toString((((((sth*3600)+(stm*60)+(sts))-((dth*3600)+(dtm*60)+(dts)))/
+                                ((atm*60)+(ats)+(ath*3600))))*100)));
                     }
                 }
 
@@ -356,6 +451,21 @@ public class Efficiency extends javax.swing.JFrame {
         int row = jTable1.getSelectedRow();
         jTextField1.setText(jTable1.getModel().getValueAt(row, column).toString());
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void txtSubMin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubMin1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubMin1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        txtSubHr1.setText("");
+        txtSubMin1.setText("");
+        txtSubSec1.setText("");
+        jTextField1.setText("");
+        jTextField3.setText("");
+        txtSubHr1.setBackground(Color.WHITE);
+        txtSubMin1.setBackground(Color.WHITE);
+        txtSubSec1.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -400,9 +510,14 @@ public class Efficiency extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
